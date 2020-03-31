@@ -1,0 +1,5 @@
+datetime : 12:41:09 31-03-2020
+location : Bengaluru
+entry: Hi,
+This is my first journal entry
+
