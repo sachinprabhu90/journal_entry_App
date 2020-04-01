@@ -13,7 +13,6 @@ class Journal():
         master.title('My Journal')
 
         # TODO
-        # create new journal - Done
         # add checklist
 
         style = ttk.Style()
@@ -26,7 +25,7 @@ class Journal():
         ttk.Label(master, text='Date & Time: ').grid(
             row=0, column=0, padx=2, pady=3)
         self.datetime_entry = ttk.Entry(
-            master, state=DISABLED, style='entry.TEntry')
+            master, state=DISABLED, style='entry.TEntry', width=100)
         self.datetime_entry.grid(row=0, column=1, padx=2, pady=3)
         self.refresh_button = ttk.Button(
             master, text='Refresh', command=lambda: self.refresh())
@@ -34,7 +33,7 @@ class Journal():
 
         ttk.Label(master, text='Location: ').grid(
             row=1, column=0, padx=2, pady=3)
-        self.location_entry = ttk.Entry(master, style='entry.TEntry')
+        self.location_entry = ttk.Entry(master, style='entry.TEntry', width=100)
         self.location_entry.grid(row=1, column=1, padx=2, pady=3)
         self.refresh_location_button = ttk.Button(
             master, text='Refresh', command=lambda: self.refresh_location())
@@ -54,6 +53,10 @@ class Journal():
             row=3, column=0, columnspan=3, sticky='NESW', padx=2, pady=5)
 
         self.refresh()
+        self.refresh_location()
+
+        #keyboard bindings
+        master.bind('<Return>', lambda e: self.submit())
 
     def refresh(self):
         self.datetime_entry.config(state=NORMAL)
@@ -64,8 +67,12 @@ class Journal():
 
     def refresh_location(self):
         g = geocoder.ip('me')
+        logging.debug(print(g))
         self.location_entry.delete(0, 'end')
-        self.location_entry.insert(0, g.city)
+        if g:
+            self.location_entry.insert(0, f'{g.city} lat:{g.latlng[0]} lng:{g.latlng[1]}')
+        else:
+            self.location_entry.insert(0, 'Enter location')
 
     def submit(self):
         text = self.text_entry.get(1.0, 'end')
@@ -74,6 +81,7 @@ class Journal():
         self.clear()
 
     def save_to_file(self):
+        messagebox.showinfo(title='Info', message='If you already have a journal entry file select .txt file and your journal entry will be appended\nIgnore the system warning')
         self.filename = filedialog.asksaveasfilename(
             filetypes=(("Text File", "*.txt"),))
         logging.debug(type(self.filename))
