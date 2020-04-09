@@ -4,6 +4,7 @@ from datetime import datetime
 import geocoder
 import os
 import logging
+from gradient import GradientFrame
 logging.basicConfig(level=logging.DEBUG)
 logging.disable(level=logging.CRITICAL)
 
@@ -48,6 +49,7 @@ class Journal():
 
         self.text_entry = Text(
             master, height=30, wrap='word', background = '#373B44',foreground='white', font=('Time New Roman', 15))
+        
         self.text_entry.grid(row=2, column=0, columnspan=3,
                              sticky='NESW', padx=2, pady=5)
     

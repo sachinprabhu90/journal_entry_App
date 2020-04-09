@@ -1,0 +1,28 @@
+{
+    "master": "#253042", 
+    "entry": {
+        "foreground": "white", 
+        "background": "#253042", 
+        "font": "Arial", 
+        "font_size": 12
+        }, 
+        
+    "label": {
+            "foreground": "white", 
+            "background": "#253042", 
+            "font": "Arial", 
+            "font_size": 12
+            }, 
+        
+    "button": {
+        "foreground": "white", 
+        "background": "#253042"
+        }, 
+    
+    "text_field": {
+            "background": "#373B44", 
+            "foreground": "white", 
+            "font": "Times New Roman", 
+            "font_size": 15
+            }
+        }
